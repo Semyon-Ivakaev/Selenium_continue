@@ -4,18 +4,13 @@ from .pages.login_page import LoginPage
 
 
 
-def go_to_login_page(browser):
-    link = browser.find_element_by_css_selector("#login_link")
-    link.click()
-    time.sleep(3)
-
 def test_guest_can_go_to_login_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)
     page.open()
     page.go_to_login_page()
 
-def test_guest_should_see_login_link(browser):
+def test_guest_should_be_login_link(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)
     page.open()
@@ -32,8 +27,8 @@ def test_should_be_login_form(browser):
     page = MainPage(browser, link)
     page.open()
     page.go_to_login_page()
-    page = LoginPage(browser, link)
-    page.should_be_login_form()
+    login_page = LoginPage(browser, browser.current_url) #обратился к ссылке(работало и просто , link)
+    login_page.should_be_login_form()
     time.sleep(1)
 
 def test_should_be_registr_form(browser):
@@ -41,6 +36,6 @@ def test_should_be_registr_form(browser):
     page = MainPage(browser, link)
     page.open()
     page.go_to_login_page()
-    page = LoginPage(browser, link)
-    page.should_be_register_form()
+    login_page = LoginPage(browser, browser.current_url)
+    login_page.should_be_register_form()
     time.sleep(1)
