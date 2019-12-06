@@ -1,4 +1,5 @@
 from .locators import ButtonAddLocators
+from .locators import ProductPageLocators
 from .base_page import BasePage
 from selenium import webdriver
 import pytest
@@ -19,6 +20,8 @@ class PageObject(BasePage):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
            "Success message is presented, but should not be"
 
-    def should_but_is_disappeared(self):
+    def should_disappear_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
            "Success message is presented, but should be====="
+
+        

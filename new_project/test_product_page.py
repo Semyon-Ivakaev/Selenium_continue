@@ -2,16 +2,34 @@ import time
 import pytest
 from .pages.product_page import PageObject
 from .pages.base_page import BasePage
+from .pages.basket_page import BasketPage
 
-@pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"])
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, link):   
+@pytest.mark.xfail(reason="He down, but it is normal")
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
     page = PageObject(browser, link)
     page.open()
     page.click_button_add()
     time.sleep(1)
-    page.is_not_element_present()#это не работает, локаторы похоже нужны
+    page.should_not_be_success_message()
 
-'''
+@pytest.mark.skip
+def test_guest_cant_see_success_message(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = PageObject(browser, link)
+    page.open()
+    time.sleep(1)
+    page.should_not_be_success_message()
+
+@pytest.mark.xfail(reason="He wait 4 sec, down, but it is normal")
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = PageObject(browser, link)
+    page.open()
+    page.click_button_add()
+    page.should_disappear_success_message()
+
+@pytest.mark.skip
 @pytest.mark.parametrize('link', [
                                    "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                    "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -33,6 +51,27 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.solve_quiz_and_get_code()
     page.should_be_book_name()
     time.sleep(3)
-'''
 
+@pytest.mark.skip
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = PageObject(browser, link)
+    page.open()
+    page.should_be_login_link()
 
+@pytest.mark.skip
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = PageObject(browser, link)
+    page.open()
+    page.go_to_login_page()
+    time.sleep(1)
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = PageObject(browser, link)
+    page.open()
+    page.go_to_basket_from_main()
+    time.sleep(1)
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.text_basket_is_empty_should_be_present()    
