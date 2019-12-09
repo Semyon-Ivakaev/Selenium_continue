@@ -12,8 +12,8 @@ class PageObject(BasePage):
         assert self.browser.switch_to.alert, "Alert window not found"
         
     def should_be_book_name(self):
-        find_tag = self.browser.find_element_by_tag_name('h1').text
-        new_text = self.browser.find_element_by_css_selector('div#messages div.alertinner > strong:nth-child(1)').text
+        find_tag = self.browser.find_element(*ProductPageLocators.FIND_TAG).text
+        new_text = self.browser.find_element(*ProductPageLocators.NEW_TEXT).text
         assert find_tag == new_text, "baaag"
 
     def should_not_be_success_message(self):
@@ -22,6 +22,6 @@ class PageObject(BasePage):
 
     def should_disappear_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
-           "Success message is presented, but should be====="
+           "Success message is presented, but should be"
 
         

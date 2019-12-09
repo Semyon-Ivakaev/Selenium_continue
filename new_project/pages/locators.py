@@ -18,7 +18,9 @@ class ButtonAddLocators():
 
 class ProductPageLocators():
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alertinner")
-
+    FIND_TAG = (By.TAG_NAME, "h1")
+    NEW_TEXT = (By.CSS_SELECTOR, "div#messages div.alertinner > strong:nth-child(1)")
+    
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")

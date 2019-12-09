@@ -31,7 +31,7 @@ def test_should_be_login_form(browser):
     page = MainPage(browser, link)
     page.open()
     page.go_to_login_page()
-    login_page = LoginPage(browser, browser.current_url) #обратился к ссылке(работало и просто , link)
+    login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_form()
     time.sleep(1)
 
